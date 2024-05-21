@@ -1,0 +1,39 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: 3.9
+          cache: pip
+
+      - name: LS
+        run: ls
+
+      - uses: insightsengineering/pip-action@v2.0.1
+        with:
+          requirements: requirements.txt
+
+      - name: PyInstaller
+        run: pyinstaller --onefile --windowed app.py
+
+      - uses: actions/upload-artifact@v4.3.3
+        with:
+          # Artifact name
+          name: pdfsplitter-windows
+          # A file, directory or wildcard pattern that describes what to upload
+          path: dist
+          overwrite: true
