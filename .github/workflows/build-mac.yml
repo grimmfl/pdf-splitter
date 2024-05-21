@@ -1,0 +1,31 @@
+name: Build Mac Executable
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: 3.9.7
+          cache: pip
+
+      - name: LS
+        run: ls
+
+      - uses: insightsengineering/pip-action@v2.0.1
+        with:
+          requirements: requirements.txt
+
+      - name: PyInstaller
+        run: pyinstaller --onefile --windowed app.py

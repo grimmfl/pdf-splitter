@@ -1,0 +1,5 @@
+build
+dist
+*.pdf
+*.spec
+.idea
