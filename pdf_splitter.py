@@ -42,12 +42,11 @@ class PdfSplitter:
     def _write_single_pages(self, page: PageObject):
         original_right = page.mediabox.right
 
-        # TODO use DIN A4 dimensions here
-        page.mediabox.right /= 2
+        page.mediabox.right = PaperSize.A4.width
         self._writer.add_page(page)
 
         page.mediabox.right = original_right
-        page.mediabox.left = original_right / 2
+        page.mediabox.left = PaperSize.A4.width
         self._writer.add_page(page)
 
     @staticmethod

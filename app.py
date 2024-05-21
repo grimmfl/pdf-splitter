@@ -38,7 +38,6 @@ def split_files_callback():
     suffix = suffix_input.get().strip()
 
     target_dir = None if TARGET_DIR == "" else TARGET_DIR
-    print(TARGET_DIR)
 
     if len(FILEPATHS) == 0:
         messagebox.showerror("Error", "No files selected")
