@@ -38,11 +38,12 @@ def split_files_callback():
 
 
 app = Tk()
+app.title("PDF Splitter")
 
 # set minimum window size value
-app.minsize(400, 400)
+app.minsize(300, 400)
 # set maximum window size value
-app.maxsize(400, 400)
+app.maxsize(300, 400)
 
 frame = Frame(app)
 
@@ -58,12 +59,12 @@ progress = Progressbar(frame)
 
 close_button = Button(frame, text="Close", command=app.quit)
 
-explore_button.pack(anchor='center')
-files_label.pack(anchor='center')
-split_button.pack(anchor='center')
-progress.pack(anchor='center')
-close_button.pack(anchor='center')
+explore_button.pack(pady=5)
+files_label.pack(pady=5)
+split_button.pack(pady=5)
+progress.pack(pady=5)
+close_button.pack(pady=5)
 
-frame.pack(anchor='center')
+frame.place(anchor='center', relx=.5, rely=.45)
 
 app.mainloop()
