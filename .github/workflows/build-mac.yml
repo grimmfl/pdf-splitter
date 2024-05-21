@@ -28,7 +28,7 @@ jobs:
           requirements: requirements.txt
 
       - name: PyInstaller
-        run: pyinstaller --onefile --windowed app.py
+        run: pyinstaller -n pdfsplitter --onefile --windowed app.py
 
       - uses: actions/upload-artifact@v4.3.3
         with:
