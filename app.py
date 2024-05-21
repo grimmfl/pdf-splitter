@@ -3,7 +3,7 @@ Tkinter app
 """
 
 from tkinter import Tk, filedialog, messagebox
-from tkinter.ttk import Button, Label, Progressbar, Frame
+from tkinter.ttk import Button, Label, Progressbar, Frame, Entry
 
 from pdf_splitter import PdfSplitter
 
@@ -25,12 +25,13 @@ def split_files_callback():
     """
     callback function handling click on split files
     """
+    suffix = suffix_input.get().strip()
     if len(FILEPATHS) == 0:
-        print("no files selected")
+        messagebox.showerror("Error", "No files selected")
         return
 
     for path in FILEPATHS:
-        splitter = PdfSplitter(path)
+        splitter = PdfSplitter(path, suffix)
         splitter.split()
         progress.step(1 / len(FILEPATHS) * 100)
 
@@ -41,29 +42,31 @@ app = Tk()
 app.title("PDF Splitter")
 
 # set minimum window size value
-app.minsize(300, 400)
+app.minsize(400, 400)
 # set maximum window size value
-app.maxsize(300, 400)
+app.maxsize(400, 400)
 
 frame = Frame(app)
 
-explore_button = Button(frame,
-                        text="Browse Files",
-                        command=browse_files_callback)
+explore_button = Button(frame, text="Browse Files", command=browse_files_callback)
+explore_button.grid(row=0, column=0, pady=5)
 
 files_label = Label(frame, text="")
+files_label.grid(row=0, column=1, pady=5)
+
+Label(frame, text="Suffix").grid(row=1, column=0, pady=5)
+
+suffix_input = Entry(frame)
+suffix_input.grid(row=1, column=1, pady=5)
 
 split_button = Button(frame, text="Split Files", command=split_files_callback)
+split_button.grid(row=2, column=0, pady=5)
 
 progress = Progressbar(frame)
+progress.grid(row=2, column=1, pady=5)
 
 close_button = Button(frame, text="Close", command=app.quit)
-
-explore_button.pack(pady=5)
-files_label.pack(pady=5)
-split_button.pack(pady=5)
-progress.pack(pady=5)
-close_button.pack(pady=5)
+close_button.grid(row=3, column=0, pady=5)
 
 frame.place(anchor='center', relx=.5, rely=.45)
 
