@@ -2,7 +2,7 @@
 Tkinter app
 """
 
-from tkinter import Tk, filedialog
+from tkinter import Tk, filedialog, messagebox
 from tkinter.ttk import Button, Label, Progressbar, Frame
 
 from pdf_splitter import PdfSplitter
@@ -33,6 +33,8 @@ def split_files_callback():
         splitter = PdfSplitter(path)
         splitter.split()
         progress.step(1 / len(FILEPATHS) * 100)
+
+    messagebox.showinfo("Success", "PDFs splitted successfully")
 
 
 app = Tk()
